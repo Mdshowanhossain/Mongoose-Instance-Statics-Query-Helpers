@@ -9,7 +9,6 @@ const Todo = new mongoose.model("Todo", todoSchema);
 
 // Get Active ToDos
 
-
 router.get('/active', async (req, res) => {
 
     const todo = new Todo();
@@ -23,7 +22,7 @@ router.get('/active', async (req, res) => {
 
 // Another
 
-// Get Active ToDos
+// get Static Methods
 
 // router.get('/active', async (req, res) => {
 
@@ -39,14 +38,11 @@ router.get('/active', async (req, res) => {
 //     }
 // })
 
+// get Static Methods
 
 // Get Todo With CallBack
 
-// Get Active ToDos
-
-
 // router.get('/active', (req, res) => {
-
 
 //     const todo = new Todo();
 //     todo.findActiveWithCallBack((err, data) => {

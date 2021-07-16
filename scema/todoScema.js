@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
-const todoSchema = mongoose.Schema({
 
+
+const todoSchema = mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -15,9 +16,7 @@ const todoSchema = mongoose.Schema({
         type: Date,
         default: Date.now(),
     }
-
 });
-
 
 // instance Methods
 
@@ -31,31 +30,17 @@ todoSchema.methods = {
     },
 
 }
-
-
 // statics Methods
-
 todoSchema.statics = {
     findByTitle: function () {
         return this.find({ title: /js/i });
     }
 }
-
-// Query Helpers Methods
-
-// todoSchema.query = {
-//     findFriend: function (bestFriend) {
-//         return this.find({ title: new RegExp(bestFriend, "i") });
-//     },
-// }
-
-
+// query Methods
 todoSchema.query = {
     findFriend: function (friend) {
         return this.find({ title: new RegExp(friend, "i") })
     }
 }
-
-
 module.exports = todoSchema;
 
