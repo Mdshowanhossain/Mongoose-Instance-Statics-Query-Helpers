@@ -19,6 +19,8 @@ const todoSchema = mongoose.Schema({
 });
 
 
+// instance Methods
+
 todoSchema.methods = {
     findActive: function () {
         return mongoose.model("Todo").find({ status: "inactive" })
@@ -28,6 +30,30 @@ todoSchema.methods = {
         return mongoose.model("Todo").find({ status: "inactive" }, cb)
     },
 
+}
+
+
+// statics Methods
+
+todoSchema.statics = {
+    findByTitle: function () {
+        return this.find({ title: /js/i });
+    }
+}
+
+// Query Helpers Methods
+
+// todoSchema.query = {
+//     findFriend: function (bestFriend) {
+//         return this.find({ title: new RegExp(bestFriend, "i") });
+//     },
+// }
+
+
+todoSchema.query = {
+    findFriend: function (friend) {
+        return this.find({ title: new RegExp(friend, "i") })
+    }
 }
 
 

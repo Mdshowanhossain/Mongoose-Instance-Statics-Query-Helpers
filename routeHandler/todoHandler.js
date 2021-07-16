@@ -5,19 +5,21 @@ const todoSchema = require('../scema/todoScema');
 const Todo = new mongoose.model("Todo", todoSchema);
 
 
+// Instant Methods
+
 // Get Active ToDos
 
 
-// router.get('/active', async (req, res) => {
+router.get('/active', async (req, res) => {
 
-//     const todo = new Todo();
-//     const data = await todo.findActive();
+    const todo = new Todo();
+    const data = await todo.findActive();
 
-//     res.status(200).json({
-//         data,
-//     })
+    res.status(200).json({
+        data,
+    })
 
-// })
+})
 
 // Another
 
@@ -43,126 +45,44 @@ const Todo = new mongoose.model("Todo", todoSchema);
 // Get Active ToDos
 
 
-router.get('/active', (req, res) => {
+// router.get('/active', (req, res) => {
 
 
-    const todo = new Todo();
-    todo.findActiveWithCallBack((err, data) => {
+//     const todo = new Todo();
+//     todo.findActiveWithCallBack((err, data) => {
 
-        if (err) {
-            res.status(500).json({
-                message: 'There is a problem',
-            })
-        } else {
-            res.status(200).json({
-                data
-            })
-        }
+//         if (err) {
+//             res.status(500).json({
+//                 message: 'There is a problem',
+//             })
+//         } else {
+//             res.status(200).json({
+//                 data
+//             })
+//         }
 
-    });
+//     });
 
-})
-
-
+// })
 
 
+// get Static Methods
 
-
-
-
-
-
-
-router.post('/', async (req, res) => {
-
-    const newTodo = new Todo(req.body);
-    await newTodo.save((err) => {
-        if (err) {
-            res.status(500).json({
-                error: "There was a server side error"
-            })
-        } else {
-            res.status(200).json({
-                message: "Thank You created a new Data"
-            })
-        }
-    });
-
-})
-
-router.post('/all', async (req, res) => {
-
-    await Todo.insertMany(req.body, (err) => {
-
-        if (err) {
-            res.status(500).json({
-                error: "There was a server side error!"
-            })
-        } else {
-            res.status(200).json({
-                message: "Todo was insertedMany Successfully"
-            })
-        }
-
+router.get('/title', async (req, res) => {
+    const data = await Todo.findByTitle();
+    res.status(200).json({
+        data,
     })
-
 })
 
-router.put('/:id', async (req, res) => {
-
-    await Todo.findByIdAndUpdate({ _id: req.params.id },
-        { $set: { status: 'active' } },
-        {
-            new: true,
-            useFindAndModify: false,
-        },
-        (err) => {
-            if (err) {
-                res.status(500).json({
-                    error: "Update Failed"
-                })
-            } else {
-                res.status(200).json({
-                    message: "Update successfully"
-                })
-            }
-
-        })
+// get queryHelpers Methods
 
 
-    // await Todo.updateOne({ _id: req.params.id }, { $set: { status: 'inactive' } }, (err) => {
-
-    //     if (err) {
-    //         res.status(500).json({
-    //             error: "Update Failed"
-    //         })
-    //     } else {
-    //         res.status(200).json({
-    //             message: "Update successfully"
-    //         })
-    //     }
-
-    // })
-
-
-
-
-})
-
-router.delete('/:id', async (req, res) => {
-
-    await Todo.deleteOne({ _id: req.params.id }, (err) => {
-        if (err) {
-            res.status(500).json({
-                error: "Sorry not Deleted"
-            })
-        } else {
-            res.status(200).json({
-                message: "Delete successfully"
-            })
-        }
+router.get("/friend", async (req, res) => {
+    const data = await Todo.find().findFriend("osman");
+    res.status(200).json({
+        data,
     })
-
 })
 
 
