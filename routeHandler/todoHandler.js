@@ -2,76 +2,76 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const todoSchema = require('../scema/todoScema');
-
 const Todo = new mongoose.model("Todo", todoSchema);
 
 
-router.get('/', async (req, res) => {
-    await Todo.find({ status: 'active' })
-        .select({
-            _id: 0,
-            date: 0,
-            _v: 0,
-            data: 0
-        })
-        .limit(1)
-        .exec((err, data) => {
-            if (err) {
-                error.status(500).json({
-                    error: "There was a error",
-                });
-            } else {
-                res.status(200).json({
-                    result: data,
-                    message: 'Todo get complete'
-                })
-            }
-
-        })
+// Get Active ToDos
 
 
+// router.get('/active', async (req, res) => {
 
-    // await Todo.find({ status: 'active' }, (err, data) => {
-    //     if (err) {
-    //         error.status(500).json({
-    //             error: "There was a error",
-    //         });
-    //     } else {
-    //         res.status(200).json({
-    //             result: data,
-    //             message: 'Todo get complete'
-    //         })
-    //     }
-    // });
+//     const todo = new Todo();
+//     const data = await todo.findActive();
 
+//     res.status(200).json({
+//         data,
+//     })
 
-    // await Todo.find({ status: 'active' })
-    //     .select({
-    //         _id: 0,
-    //         date: 0,
-    //         _v: 0,
-    //         data: 0
-    //     }).exec((err, data) => {
-    //         if (err) {
-    //             error.status(500).json({
-    //                 error: "There was a error",
-    //             });
-    //         } else {
-    //             res.status(200).json({
-    //                 result: data,
-    //                 message: 'Todo get complete'
-    //             })
-    //         }
+// })
 
-    //     })
+// Another
+
+// Get Active ToDos
+
+// router.get('/active', async (req, res) => {
+
+//     try {
+//         const todo = new Todo();
+//         const data = await todo.findActive();
+
+//         res.status(200).json({
+//             data,
+//         })
+//     } catch (err) {
+//         console.log(err)
+//     }
+// })
 
 
+// Get Todo With CallBack
+
+// Get Active ToDos
 
 
+router.get('/active', (req, res) => {
 
 
+    const todo = new Todo();
+    todo.findActiveWithCallBack((err, data) => {
+
+        if (err) {
+            res.status(500).json({
+                message: 'There is a problem',
+            })
+        } else {
+            res.status(200).json({
+                data
+            })
+        }
+
+    });
 
 })
+
+
+
+
+
+
+
+
+
+
 
 router.post('/', async (req, res) => {
 

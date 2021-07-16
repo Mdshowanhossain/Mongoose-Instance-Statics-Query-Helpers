@@ -18,22 +18,18 @@ const todoSchema = mongoose.Schema({
 
 });
 
+
+todoSchema.methods = {
+    findActive: function () {
+        return mongoose.model("Todo").find({ status: "inactive" })
+    },
+
+    findActiveWithCallBack: function (cb) {
+        return mongoose.model("Todo").find({ status: "inactive" }, cb)
+    },
+
+}
+
+
 module.exports = todoSchema;
 
-
-// title: {
-//     type: string,
-//     required: true,
-// },
-
-// description: string,
-
-
-// status: {
-//     type: string,
-//     enum: ["active", "inactive"],
-// },
-// date: {
-//     type: Date,
-//     default: Date.now(),
-// },

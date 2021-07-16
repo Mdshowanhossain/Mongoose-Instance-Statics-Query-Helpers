@@ -11,7 +11,6 @@ mongoose.connect('mongodb://localhost/todos', { useNewUrlParser: true, useUnifie
     .catch(err => console.log(err));
 
 
-
 app.use('/todo', todoHandler);
 
 
